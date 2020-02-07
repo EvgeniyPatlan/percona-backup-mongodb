@@ -21,7 +21,8 @@ services:
       - CONFIGSVR=true
     command: mongod --configsvr --dbpath /data/db --replSet cfg --bind_ip_all --port 27017 --keyFile /opt/keyFile --storageEngine wiredTiger  --wiredTigerCacheSizeGB 1
     volumes:
-      # - ./scripts/start.sh:/docker-entrypoint-initdb.d/start.sh
+      - ./mongodb:/home/mongodb
+      - ./scripts/start.sh:/docker-entrypoint-initdb.d/start.sh
       - ./scripts/start.sh:/opt/start.sh
       - ./keyFile:/opt/keyFile
   cfg02:
@@ -95,7 +96,8 @@ services:
       - REPLSET_NAME=rs1
     command: mongod --replSet rs1 --port 27017 --storageEngine wiredTiger --shardsvr  --keyFile /opt/keyFile --wiredTigerCacheSizeGB 1
     volumes:
-      # - ./scripts/start.sh:/docker-entrypoint-initdb.d/start.sh
+      - ./mongodb:/home/mongodb
+      - ./scripts/start.sh:/docker-entrypoint-initdb.d/start.sh
       - ./scripts/start.sh:/opt/start.sh
       - ./keyFile:/opt/keyFile
   rs102:
@@ -173,8 +175,9 @@ services:
       - REPLSET_NAME=rs2
     command: mongod --replSet rs2 --port 27017 --storageEngine wiredTiger --shardsvr  --keyFile /opt/keyFile --wiredTigerCacheSizeGB 1
     volumes:
+      - ./mongodb:/home/mongodb
       - ./scripts/start.sh:/opt/start.sh
-      # - ./scripts/start.sh:/docker-entrypoint-initdb.d/start.sh
+      - ./scripts/start.sh:/docker-entrypoint-initdb.d/start.sh
       - ./keyFile:/opt/keyFile
   rs202:
     image: percona/percona-server-mongodb:3.6

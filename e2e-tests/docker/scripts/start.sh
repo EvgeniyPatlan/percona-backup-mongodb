@@ -2,7 +2,7 @@
 
 set -o xtrace
 
-sleep 25
+sleep 60
 
 MONGO_USER="dba"
 MONGO_PASS="test1234"
